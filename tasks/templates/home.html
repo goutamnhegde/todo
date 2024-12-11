@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <style>
+        body{
+            background-image: url("{% static 'todo.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin:0;
+            font-family:Arial,sans-serif;
+        }
+        h1,h2,p,form,button{
+            background-color: rgba(255,255,255,0.8);
+            padding:10px;
+            border-radius:8px;
+            
+        }
+    </style>
+</head>
+<body>
+    <h1 style="max-width: 300px;">To-Do List</h1>
+    <div width="5px">
+    <form method="POST" action="" style="max-width: 300px;">
+        {% csrf_token %}
+        {{form.Title}}
+        <input id="sub" type="submit" name="Add Task"  required>
+    </form><br>
+    <button id="b1" onclick="showDetails()">View Tasks</button>
+    <div id="read" style="display: none;">
+    <h2 style="max-width: 300px;">List of tasks</h2>
+    {% for x in tas %}
+        <div style="max-width: fit-content;">
+            <p>{{x.Title}}</p>
+        </div>
+
+    {% endfor %}
+    </div>
+    </div>
+    <script>
+     function showDetails(){
+        let dv=document.getElementById("read");
+        let btn=document.getElementById("b1");
+        if( dv.style.display=="none"){
+            dv.style.display="block"
+        }
+        else{
+            dv.style.display="none"
+            
+
+        }
+
+     }
+
+    </script>
+    
+</body>
+</html>
