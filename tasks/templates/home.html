@@ -27,34 +27,65 @@
     <div width="5px">
     <form method="POST" action="" style="max-width: 300px;">
         {% csrf_token %}
-        {{form.Title}}
+        <label for="task"></label>
+        <input id="tasking" type="text" name="tk" required> 
+        <input type="date" name="d1">
         <input id="sub" type="submit" name="Add Task"  required>
     </form><br>
-    <button id="b1" onclick="showDetails()">View Tasks</button>
-    <div id="read" style="display: none;">
+    </div>
+    <form method="get"  style="max-width: 300px;" action="">
+    <input type="date" id="dt" name="dat">
+    <button id="b1" type="submit">View Tasks</button>
+    </form>
+    <div id="read" style="display: block;">
     <h2 style="max-width: 300px;">List of tasks</h2>
     {% for x in tas %}
         <div style="max-width: fit-content;">
-            <p>{{x.Title}}</p>
+           <p id="comp">{{x.Title}}  <a href="done/{{x.id}}">Done</a> <a href="delete/{{x.id}}">Delete</a> <input type="button" id="{{x.id}}" value="update"> </p>
+           
         </div>
 
     {% endfor %}
+    {% if y in tas %}
+    <dialog id="d1">
+        <form>
+        <input type="text" value="{{y.Title}}">
+        <input type="submit">
+
+
+
+       </dialog>
+    {% endif %}
+
     </div>
-    </div>
+    
     <script>
      function showDetails(){
         let dv=document.getElementById("read");
         let btn=document.getElementById("b1");
         if( dv.style.display=="none"){
             dv.style.display="block"
+            btn.textContent="Hide"
         }
         else{
             dv.style.display="none"
+            btn.textContent="View Tasks"
             
 
         }
 
      }
+
+    //  function updatetext(){
+    //     let ub=document.getElementById("{{x.id}}")
+    //     let d=document.getElementById("d1")
+    //     ub.addEventListener( 'click', () => {
+    //         d.showModal();
+    //     })
+
+        
+    //  }
+     
 
     </script>
     
